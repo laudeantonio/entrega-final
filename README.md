@@ -5,9 +5,9 @@ Para garantizar la seguridad, el sistema extrae solo información no sensible (c
 
 Posteriormente, el flujo consulta una base de datos de asesores en Supabase para encontrar a la persona disponible con menor carga de trabajo que coincida con la prioridad del lead. Finalmente, se envía un correo personalizado de bienvenida al lead y se actualiza una hoja de cálculo en Google Sheets con el estado "Contactado" y el asesor asignado.
 
-##Explicación de los Nodos Principales
+*## Explicación de los Nodos Principales*
 
-A. Recepción y Preparación de Datos
+*A. Recepción y Preparación de Datos*
 Nodo: Recepción_lead (Webhook):
 
 Qué hace: Actúa como el trigger del flujo. Recibe las solicitudes POST con los datos del formulario de contacto.
@@ -20,7 +20,7 @@ Nodo: Base_Datos_Sheets (Google Sheets):
 
 Qué hace: Registra inicialmente el lead en una hoja de cálculo con el estado "Creado".
 
-B. Inteligencia Artificial y Scoring
+*B. Inteligencia Artificial y Scoring*
 Nodo: AI Agent (LangChain):
 
 Qué hace: Procesa la información del lead utilizando el modelo Google Gemini Chat.
@@ -39,7 +39,7 @@ Fuente: Intención de compra según el origen del lead.
 
 Formato de Salida: Devuelve un JSON con el score, el tier (HOT, WARM, COLD), un desglose (breakdown) y la razón del puntaje.
 
-C. Clasificación y Asignación
+*C. Clasificación y Asignación*
 Nodo: Clasificador_Prioridad (Switch):
 
 Qué hace: Divide el flujo en tres ramas según el tier (HOT, WARM o COLD) para dar un tratamiento diferenciado a cada lead.
@@ -52,7 +52,7 @@ Nodo: Selección_Asesor (Code):
 
 Qué hace: Ejecuta un script en JavaScript que calcula la carga de trabajo de los asesores disponibles (leads_activos / capacidad_maxima). Selecciona automáticamente al asesor con menor porcentaje de carga para equilibrar el trabajo.
 
-D. Notificación y Cierre
+*D. Notificación y Cierre*
 Nodos: Notificación_Ausencia_Asesor (Discord):
 
 Qué hace: Si no se encuentra ningún asesor activo para el tier correspondiente, envía una alerta urgente a Discord con los datos del lead para que un supervisor intervenga.
