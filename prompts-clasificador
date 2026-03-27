@@ -28,61 +28,40 @@ Señal 2: Sector de la empresa (peso: 25 puntos)
 Evalúa qué tan alineado está el sector con el mercado objetivo de Siigo.
 Sector
 Puntos
-Software, Tecnología, Finanzas, Contabilidad
-25
-Retail, Comercio, Distribución
-22
-Salud, Educación, Servicios profesionales
-18
-Manufactura, Construcción, Agro
-13
-Gobierno, ONG, Otro o desconocido
-7
+Software, Tecnología, Finanzas, Contabilidad=25
+Retail, Comercio, Distribución =22
+Salud, Educación, Servicios profesionales=18
+Manufactura, Construcción, Agro= 13
+Gobierno, ONG, Otro o desconocido=7
 </Señal 2>
+
 <Señal 3>
 Señal 3: Cargo del contacto (peso: 25 puntos)
 Evalúa el nivel de decisión del contacto dentro de su empresa.
 Cargo
 Puntos
-CEO, Gerente General, Director, Dueño, Propietario
-25
-CFO, Director Financiero, Contador General, Controller
-23
-Gerente Administrativo, Gerente Financiero, Jefe de Contab.
-18
-Coordinador, Analista, Asistente Contable
-10
-Desconocido o no relacionado con finanzas/decisión
-4
+CEO, Gerente General, Director, Dueño, Propietario= 25
+CFO, Director Financiero, Contador General, Controller=23
+Gerente Administrativo, Gerente Financiero, Jefe de Contable.=18
+Coordinador, Analista, Asistente Contable = 10
+Desconocido o no relacionado con finanzas/decisión= 4
 </Señal 3>
+
 <Señal 4>
 Señal 4: Fuente del lead (peso: 25 puntos)
 Evalúa la intención de compra implícita según cómo llegó el lead.
 Fuente
 Puntos
-Razón
-sdr (prospección activa)
-25
-Lead cualificado por humano antes de entrar
-referidos (programa referidos)
-24
-Alta intención, viene recomendado
-formulario_web
-20
-Interés activo, buscó la solución
-google_ads
-18
-Interés activo, búsqueda con intención
-linkedin
-14
-Interés potencial, contexto profesional
-ferias (eventos y ferias)
-10
-Interés general, menor intención de compra
-desconocido
-5
-Sin contexto de origen
+lead activo = 25
+programa referidos= 24
+formulario_web= 20
+google_ads= 18
+linkedin= 14
+ferias (eventos y ferias)= 10
+desconocido= 5
+Sin contexto de origen= 0
 </Señal 4>
+
 </CRITERIOS DE SCORING> 
 
 <CLASIFICACIÓN EN TIERS> 
