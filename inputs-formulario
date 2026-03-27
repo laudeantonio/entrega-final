@@ -1,0 +1,45 @@
+Hot:
+
+
+{
+  "name": "Laura De Antonio",
+  "email": "lddeantoniol@gmail.com",
+  "phone": "+573124445566",
+  "cargo": "CEO",
+  "company": "Eclosion Consulting",
+  "city": "Bogotá",
+  "source": "Referido",
+  "industry": "Tecnologia",
+  "employee_count": "500"
+}
+
+Warm:
+
+{
+  "name": "Laura De Antonio",
+  "email": "lddeantoniol@gmail.com",
+  "phone": "+573124445566",
+  "cargo": "CEO",
+  "company": "Eclosion Consulting",
+  "city": "Bogotá",
+  "source": "Referido",
+  "industry": "Tecnología",
+  "employee_count": "500"
+}
+
+Cold:
+
+
+
+
+{
+  "name": "Miguel Rodriguez",
+  "email": "amalia.backup4@gmail.com",
+  "phone": "+573134443094",
+  "cargo": "Contratista",
+  "company": "Manos del Caribe",
+  "city": "Bogotá",
+  "source": "",
+  "industry": "ONG",
+  "employee_count": "7"
+}
