@@ -44,6 +44,6 @@ Nodo: Selección_Asesor (Code): Ejecuta un script en JavaScript que calcula la c
 **D. Notificación y Cierre**
 Nodos: Notificación_Ausencia_Asesor (Discord): Si no se encuentra ningún asesor activo para el tier correspondiente, envía una alerta urgente a Discord con los datos del lead para que un supervisor intervenga.
 
-Nodo: Traductor_Ingles / Gmail_Confirmación: Genera un mensaje comercial personalizado y lo envía al lead vía Gmail. El correo incluye un botón para agendar una demo directamente en Calendly.
+Nodo: Traductor_Ingles / Gmail_Confirmación: Genera un mensaje comercial personalizado en ingles y lo envía al lead vía Gmail. El correo incluye un botón para agendar una demo directamente en Calendly.
 
 Nodo: Actualización_Estado_Sheets (Google Sheets): Actualiza la fila del lead con el nombre del asesor asignado, la razón del scoring y cambia el estado a "Contactado".
