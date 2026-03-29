@@ -1,49 +1,38 @@
 # Calificación Automatizada de Leads (Lead Scoring)
-Descripción del caso: Este flujo automatiza la recepción, evaluación y asignación de clientes potenciales (leads) para Siigo. El proceso comienza cuando un nuevo lead es recibido a través de un Webhook (por ejemplo, desde un formulario web)
+Descripción del caso: Este flujo automatiza la recepción, evaluación y asignación de clientes potenciales (leads) para Siigo. El proceso comienza cuando un nuevo lead es recibido a través de un Webhook (inputs-formulario).
 
-Para garantizar la seguridad, el sistema extrae solo información no sensible (cargo, empresa, sector, etc.) y la envía a un Agente de IA (Google Gemini). La IA evalúa el lead basándose en criterios específicos (tamaño de empresa, sector, cargo y fuente) y asigna un puntaje de 0 a 100, clasificándolo en categorías HOT, WARM o COLD.
+Para garantizar la seguridad, el sistema extrae solo información no sensible y la envía a un Agente de IA (Google Gemini). La IA evalúa el lead basándose en criterios específicos (tamaño de empresa, sector, cargo y fuente) y asigna un puntaje de 0 a 100, clasificándolo en categorías HOT, WARM o COLD.
 
 Posteriormente, el flujo consulta una base de datos de asesores en Supabase para encontrar a la persona disponible con menor carga de trabajo que coincida con la prioridad del lead. Finalmente, se envía un correo personalizado de bienvenida al lead y se actualiza una hoja de cálculo en Google Sheets con el estado "Contactado" y el asesor asignado.
 
 * ## Explicación de los Nodos Principales *
 
-**A. Recepción y Preparación de Datos**
-Nodo: Recepción_lead (Webhook): Actúa como el trigger del flujo. Recibe las solicitudes POST con los datos del formulario de contacto.
+Webhook (Recepcion_lead): Actúa como el disparador del flujo al recibir los datos de nuevos prospectos desde formularios externos. Centraliza la entrada de información para iniciar el proceso de calificación de forma inmediata.
 
-Nodo: Extracción_información_no_sensible (Set): Filtra y organiza los datos necesarios para la IA (cargo, empresa, ciudad, fuente, industria y número de empleados), omitiendo intencionalmente datos personales como nombres o teléfonos por seguridad.
+Google Sheets (Base_Datos_Sheets): Registra cada lead entrante en una fila de la base de datos con un estado inicial (creado). Permite mantener un historial de auditoría desde el primer momento en que el usuario interactúa con la marca.
 
-Nodo: Base_Datos_Sheets (Google Sheets):Registra inicialmente el lead en una hoja de cálculo con el estado "Creado".
+Set (Extracción_información_no_sensible): Filtra los datos del webhook para enviar al motor de IA únicamente variables de negocio como industria y cargo. Esta capa asegura que la información personal identificable no sea procesada por modelos externos.
 
+AI Agent (Agente_Scoring): Analiza el perfil del lead utilizando lógica de LangChain y Gemini para determinar su potencial de conversión. Devuelve un puntaje numérico y una categorización basada en reglas de negocio predefinidas.
 
-**B. Inteligencia Artificial y Scoring**
-Nodo: AI Agent (LangChain): Procesa la información del lead utilizando el modelo Google Gemini Chat.
+Formateador_variable_tier (Set): Normaliza y estandariza la etiqueta de prioridad generada por la IA para asegurar la compatibilidad con los filtros subsiguientes.
 
-Parámetros: Temperatura 0.4 para mantener respuestas consistentes y precisas.
+Google Gemini Chat Model: Provee la inteligencia lingüística y lógica al agente para interpretar datos no estructurados. Su configuración de temperatura balancea la precisión técnica con la flexibilidad del análisis.
 
-Prompt (System Message): El agente tiene instrucciones estrictas para evaluar 4 señales (25 puntos c/u):
+Switch (Clasificador_Prioridad): Segmenta el flujo en tres rutas distintas (Hot, Warm, Cold) dependiendo del resultado del scoring. Dirige cada oportunidad hacia el proceso de atención o nutrición que le corresponde.
 
-Tamaño de empresa: Basado en el número de empleados.
+Supabase (Consulta_BD_Asesores): Consulta en tiempo real la tabla de asesores activos para identificar quiénes están disponibles según su especialidad. Filtra los perfiles que coinciden con el nivel de prioridad del lead asignado.
 
-Sector: Alineación con el mercado objetivo de Siigo.
+¿Hay_Asesores_Activos? (Filter): Valida si la consulta a la base de datos retornó algún asesor disponible antes de proceder con la asignación. Actúa como un control de seguridad que desvía el flujo hacia una notificación de alerta si no existen agentes activos en ese momento.
 
-Cargo: Nivel de decisión del contacto.
+Discord (Notificación_Ausencia_Asesor): Dispara una alerta de contingencia si no se encuentra un asesor disponible para un lead de alta prioridad. Garantiza que el equipo de supervisión pueda intervenir manualmente ante cualquier fallo en la asignación.
 
-Fuente: Intención de compra según el origen del lead.
+Code (Selección_Asesor): Ejecuta un script para comparar la carga de trabajo actual de los asesores disponibles. Selecciona automáticamente al asesor con menos tareas activas para optimizar el tiempo de respuesta.
 
-*Formato de Salida: Devuelve un JSON con el score, el tier (HOT, WARM, COLD), un desglose (breakdown) y la razón del puntaje.*
+Datos_Correo_Lead (Set): Consolida la información final del lead, incluyendo su nombre y los datos de contacto, para estructurar el cuerpo del mensaje que se enviará. Prepara las variables necesarias para que el nodo de correo pueda realizar una personalización precisa antes del envío.
 
+Google Translate (Traductor_Ingles): Adapta automáticamente el mensaje comercial al idioma inglés para estandarizar la comunicación internacional. Asegura que la propuesta de valor sea clara y profesional antes de ser enviada al destinatario.
 
-**C. Clasificación y Asignación**
-Nodo: Clasificador_Prioridad (Switch): Divide el flujo en tres ramas según el tier (HOT, WARM o COLD) para dar un tratamiento diferenciado a cada lead.
+Gmail (Gmail_Confirmación_Recibido): Realiza el envío del correo electrónico personalizado que incluye la invitación a agendar mediante Calendly. Conecta al lead directamente con el asesor asignado para cerrar la brecha de contacto.
 
-Nodos: Consulta_BD_Asesores_Activos (Supabase): Busca en la tabla asesores a aquellos que estén marcados como activos y cuya especialidad coincida con el tier del lead.
-
-Nodo: Selección_Asesor (Code): Ejecuta un script en JavaScript que calcula la carga de trabajo de los asesores disponibles (leads_activos / capacidad_maxima). Selecciona automáticamente al asesor con menor porcentaje de carga para equilibrar el trabajo.
-
-
-**D. Notificación y Cierre**
-Nodos: Notificación_Ausencia_Asesor (Discord): Si no se encuentra ningún asesor activo para el tier correspondiente, envía una alerta urgente a Discord con los datos del lead para que un supervisor intervenga.
-
-Nodo: Traductor_Ingles / Gmail_Confirmación: Genera un mensaje comercial personalizado en ingles y lo envía al lead vía Gmail. El correo incluye un botón para agendar una demo directamente en Calendly.
-
-Nodo: Actualización_Estado_Sheets (Google Sheets): Actualiza la fila del lead con el nombre del asesor asignado, la razón del scoring y cambia el estado a "Contactado".
+Google Sheets (Actualización_Estado_Sheets): Modifica la fila original del lead para marcarlo como "Contactado" e incluir el nombre del asesor responsable. Cierra el ciclo de automatización asegurando la integridad y actualización de la base de datos.
