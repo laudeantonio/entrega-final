@@ -5,7 +5,7 @@ Para garantizar la seguridad, el sistema extrae solo información no sensible y 
 
 Posteriormente, el flujo consulta una base de datos de asesores en Supabase para encontrar a la persona disponible con menor carga de trabajo que coincida con la prioridad del lead. Finalmente, se envía un correo personalizado de bienvenida al lead y se actualiza una hoja de cálculo en Google Sheets con el estado "Contactado" y el asesor asignado.
 
-* ## Explicación de los Nodos Principales *
+* ## Explicación de los Nodos Principales 
 
 Webhook (Recepcion_lead): Actúa como el disparador del flujo al recibir los datos de nuevos prospectos desde formularios externos. Centraliza la entrada de información para iniciar el proceso de calificación de forma inmediata.
 
