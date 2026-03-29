@@ -350,6 +350,7 @@
       "parameters": {
         "operation": "getAll",
         "tableId": "asesores",
+        "matchType": "allFilters",
         "filters": {
           "conditions": [
             {
@@ -461,11 +462,11 @@
           "conditions": [
             {
               "id": "8e92f47a-cebe-4bde-8969-ee62856b3f76",
-              "leftValue": "={{ $json.asesor_id }}",
-              "rightValue": "",
+              "leftValue": "={{ $json.activo }}",
+              "rightValue": "TRUE",
               "operator": {
-                "type": "string",
-                "operation": "exists",
+                "type": "boolean",
+                "operation": "true",
                 "singleValue": true
               }
             }
@@ -530,7 +531,7 @@
     {
       "parameters": {
         "authentication": "webhook",
-        "content": "=Urgente, no tienes ningun asesor activo para recibir el lead WARM.\n\nLos datos del lead son:\n{{ $('Recepción_lead').item.json.body.name }}\n{{ $('Recepción_lead').item.json.body.phone }}\n{{ $('Recepción_lead').item.json.body.company }}",
+        "content": "=Urgente, no tienes ningun asesor activo para recibir el lead COLD.\n\nLos datos del lead son:\n{{ $('Recepción_lead').item.json.body.name }}\n{{ $('Recepción_lead').item.json.body.phone }}\n{{ $('Recepción_lead').item.json.body.company }}",
         "options": {}
       },
       "type": "n8n-nodes-base.discord",
@@ -639,7 +640,7 @@
       "parameters": {
         "sendTo": "={{ $('Datos_Correo_Lead1').item.json.body.email }}",
         "subject": "Siigo - 🛡️ Accounting and administrative automation",
-        "message": "=<div style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);\">\n  \n  <div style=\"background-color: #0047AB; color: white; padding: 30px; text-align: center;\">\n    <h2 style=\"margin: 0; font-size: 24px; letter-spacing: 0.5px;\">Soluciones Estratégicas B2B</h2>\n    <p style=\"margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;\">Impulsando el crecimiento de tu empresa</p>\n  </div>\n\n  <div style=\"padding: 30px; background-color: #ffffff;\">\n    \n    <div style=\"white-space: pre-wrap; font-size: 15px; color: #444444;\">\n{{ $json.output }}\n    </div>\n\n    <div style=\"margin-top: 30px; text-align: center;\">\n      <a href=\"https://calendly.com/amalia-backup4/demo-siigo\" \n         style=\"background-color: #0047AB; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;\">\n         Agendar Demo en Calendly\n      </a>\n    </div>\n  </div>\n\n  <div style=\"background-color: #f4f7fa; color: #777777; padding: 20px; text-align: center; font-size: 12px; border-top: 1px solid #eeeeee;\">\n    <p style=\"margin: 0;\">© 2026 Siigo SAS. Todos los derechos reservados.</p>\n    <p style=\"margin: 5px 0 0 0;\">Este es un mensaje de acercamiento comercial personalizado.</p>\n  </div>\n</div>",
+        "message": "=<div style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);\">\n  \n  <div style=\"background-color: #0047AB; color: white; padding: 30px; text-align: center;\">\n    <h2 style=\"margin: 0; font-size: 24px; letter-spacing: 0.5px;\">B2B Strategic Solutions</h2>\n    <p style=\"margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;\">Driving your company's growth</p>\n  </div>\n\n  <div style=\"padding: 30px; background-color: #ffffff;\">\n    \n    <div style=\"white-space: pre-wrap; font-size: 15px; color: #444444;\">\n{{ $json.content.parts[0].text }}\n    </div>\n\n    <div style=\"margin-top: 30px; text-align: center;\">\n      <a href=\"https://calendly.com/amalia-backup4/demo-siigo\" \n         style=\"background-color: #0047AB; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;\">\n        Schedule a demo on Calendly\n      </a>\n    </div>\n  </div>\n\n  <div style=\"background-color: #f4f7fa; color: #777777; padding: 20px; text-align: center; font-size: 12px; border-top: 1px solid #eeeeee;\">\n    <p style=\"margin: 0;\">© 2026 Siigo SAS. All rights reserved.</p>\n    <p style=\"margin: 5px 0 0 0;\">Siigo - 🛡️ Accounting and administrative automation</p>\n  </div>\n</div>",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
@@ -1147,7 +1148,7 @@
       "parameters": {
         "sendTo": "={{ $('Datos_Correo_Lead3').item.json.body.email }}",
         "subject": "Siigo - 🛡️ Accounting and administrative automation",
-        "message": "=<div style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);\">\n  \n  <div style=\"background-color: #0047AB; color: white; padding: 30px; text-align: center;\">\n    <h2 style=\"margin: 0; font-size: 24px; letter-spacing: 0.5px;\">Soluciones Estratégicas B2B</h2>\n    <p style=\"margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;\">Impulsando el crecimiento de tu empresa</p>\n  </div>\n\n  <div style=\"padding: 30px; background-color: #ffffff;\">\n    \n    <div style=\"white-space: pre-wrap; font-size: 15px; color: #444444;\">\n{{ $json.output }}\n    </div>\n\n    <div style=\"margin-top: 30px; text-align: center;\">\n      <a href=\"https://calendly.com/amalia-backup4/demo-siigo\" \n         style=\"background-color: #0047AB; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;\">\n         Agendar Demo en Calendly\n      </a>\n    </div>\n  </div>\n\n  <div style=\"background-color: #f4f7fa; color: #777777; padding: 20px; text-align: center; font-size: 12px; border-top: 1px solid #eeeeee;\">\n    <p style=\"margin: 0;\">© 2026 Siigo SAS. Todos los derechos reservados.</p>\n    <p style=\"margin: 5px 0 0 0;\">Este es un mensaje de acercamiento comercial personalizado.</p>\n  </div>\n</div>",
+        "message": "=<div style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);\">\n  \n  <div style=\"background-color: #0047AB; color: white; padding: 30px; text-align: center;\">\n    <h2 style=\"margin: 0; font-size: 24px; letter-spacing: 0.5px;\">B2B Strategic Solutions</h2>\n    <p style=\"margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;\">Driving your company's growth</p>\n  </div>\n\n  <div style=\"padding: 30px; background-color: #ffffff;\">\n    \n    <div style=\"white-space: pre-wrap; font-size: 15px; color: #444444;\">\n{{ $json.content.parts[0].text }}\n    </div>\n\n    <div style=\"margin-top: 30px; text-align: center;\">\n      <a href=\"https://calendly.com/amalia-backup4/demo-siigo\" \n         style=\"background-color: #0047AB; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;\">\n        Schedule a demo on Calendly\n      </a>\n    </div>\n  </div>\n\n  <div style=\"background-color: #f4f7fa; color: #777777; padding: 20px; text-align: center; font-size: 12px; border-top: 1px solid #eeeeee;\">\n    <p style=\"margin: 0;\">© 2026 Siigo SAS. All rights reserved.</p>\n    <p style=\"margin: 5px 0 0 0;\">Siigo - 🛡️ Accounting and administrative automation</p>\n  </div>\n</div>",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
@@ -1362,7 +1363,7 @@
       "parameters": {
         "sendTo": "={{ $('Datos_Correo_Lead2').item.json.body.email }}",
         "subject": "Siigo - 🛡️ Accounting and administrative automation",
-        "message": "=<div style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);\">\n  \n  <div style=\"background-color: #0047AB; color: white; padding: 30px; text-align: center;\">\n    <h2 style=\"margin: 0; font-size: 24px; letter-spacing: 0.5px;\">Soluciones Estratégicas B2B</h2>\n    <p style=\"margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;\">Impulsando el crecimiento de tu empresa</p>\n  </div>\n\n  <div style=\"padding: 30px; background-color: #ffffff;\">\n    \n    <div style=\"white-space: pre-wrap; font-size: 15px; color: #444444;\">\n{{ $json.output }}\n    </div>\n\n    <div style=\"margin-top: 30px; text-align: center;\">\n      <a href=\"https://calendly.com/amalia-backup4/demo-siigo\" \n         style=\"background-color: #0047AB; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;\">\n         Agendar Demo en Calendly\n      </a>\n    </div>\n  </div>\n\n  <div style=\"background-color: #f4f7fa; color: #777777; padding: 20px; text-align: center; font-size: 12px; border-top: 1px solid #eeeeee;\">\n    <p style=\"margin: 0;\">© 2026 Siigo SAS. Todos los derechos reservados.</p>\n    <p style=\"margin: 5px 0 0 0;\">Este es un mensaje de acercamiento comercial personalizado.</p>\n  </div>\n</div>",
+        "message": "=<div style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333333; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);\">\n  \n  <div style=\"background-color: #0047AB; color: white; padding: 30px; text-align: center;\">\n    <h2 style=\"margin: 0; font-size: 24px; letter-spacing: 0.5px;\">B2B Strategic Solutions</h2>\n    <p style=\"margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;\">Driving your company's growth</p>\n  </div>\n\n  <div style=\"padding: 30px; background-color: #ffffff;\">\n    \n    <div style=\"white-space: pre-wrap; font-size: 15px; color: #444444;\">\n{{ $json.content.parts[0].text }}\n    </div>\n\n    <div style=\"margin-top: 30px; text-align: center;\">\n      <a href=\"https://calendly.com/amalia-backup4/demo-siigo\" \n         style=\"background-color: #0047AB; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;\">\n        Schedule a demo on Calendly\n      </a>\n    </div>\n  </div>\n\n  <div style=\"background-color: #f4f7fa; color: #777777; padding: 20px; text-align: center; font-size: 12px; border-top: 1px solid #eeeeee;\">\n    <p style=\"margin: 0;\">© 2026 Siigo SAS. All rights reserved.</p>\n    <p style=\"margin: 5px 0 0 0;\">Siigo - 🛡️ Accounting and administrative automation</p>\n  </div>\n</div>",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
@@ -1992,7 +1993,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "e5be4d3d-1998-4bc1-8573-1baf4a3c73ad",
+  "versionId": "aac78eb1-692a-4c38-b67a-2f26e14c02ce",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "f7763aa856622e03143b7ebd9baaf875b6813d90e775fad979b5c5dabb0d5f43"
